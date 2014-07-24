@@ -20,7 +20,7 @@ public class GraphPatternTest extends BaseSpanqitTest {
 	SparqlVariable address = var("address");
 	SparqlVariable name2 = var("name2");
 	SparqlVariable name3 = var("name3");
-	IRI hasAddress = uri(namespace, "hasAddress");
+	IRI hasAddress = iri(namespace, "hasAddress");
 
 	@Test
 	public void testFilterOnAGP() {

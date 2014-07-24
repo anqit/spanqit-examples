@@ -20,11 +20,11 @@ public class BaseSpanqitTest {
 		System.out.println(s);
 	}
 	
-	protected IRI uri(String uri) {
+	protected IRI iri(String uri) {
 		return OpenRdfAdapter.iri(vf.createURI(uri));
 	}
 	
-	protected IRI uri(String ns, String localName) {
+	protected IRI iri(String ns, String localName) {
 		return OpenRdfAdapter.iri(vf.createURI(ns, localName));
 	}
 	
@@ -32,8 +32,28 @@ public class BaseSpanqitTest {
 		return value(vf.createBNode());
 	}
 	
+	protected Value literal(int num) {
+		return value(vf.createLiteral(num));
+	}
+	
 	protected Value literal(double num) {
 		return value(vf.createLiteral(num));
+	}
+	
+	protected Value literal(String label) {
+		return value(vf.createLiteral(label));
+	}
+
+	protected Value literalWithLangTag(String label, String lang) {
+		return value(vf.createLiteral(label, lang));
+	}
+
+	protected Value literalWithDatatype(String label, String datatype) {
+		return value(vf.createLiteral(label, vf.createURI(datatype)));
+	}
+
+	protected Value literalWithDatatype(String label, String ns, String datatype) {
+		return value(vf.createLiteral(label, vf.createURI(ns, datatype)));
 	}
 	
 	private Value value(org.openrdf.model.Value value) {

@@ -29,9 +29,9 @@ public class SpanqitTest extends BaseSpanqitTest {
 	public void constraintTest() {
 		SelectQuery sq = new SelectQuery();
 
-		SparqlVariable name = sq.createQueryVariable();
-		SparqlVariable test = sq.createQueryVariable();
-		SparqlVariable person = sq.createQueryVariable();
+		SparqlVariable name = sq.var();
+		SparqlVariable test = sq.var();
+		SparqlVariable person = sq.var();
 
 		sq.select(name).where(
 				and(tp(name, test, person)).filter(
@@ -49,24 +49,24 @@ public class SpanqitTest extends BaseSpanqitTest {
 	public void test() {
 		SelectQuery query = new SelectQuery();
 
-		SparqlVariable name = query.createQueryVariable();
-		SparqlVariable test = query.createQueryVariable();
-		SparqlVariable person = query.createQueryVariable();
+		SparqlVariable name = query.var();
+		SparqlVariable test = query.var();
+		SparqlVariable person = query.var();
 
-		query.base(base(uri(namespace, "base")))
-				.prefix(prefix("ns", uri(namespace)))
-				.prefix(prefix("ns", uri(namespace)))
-				.prefix(prefix("", uri("http://www.default.com/#")))
+		query.base(base(iri(namespace, "base")))
+				.prefix(prefix("ns", iri(namespace)))
+				.prefix(prefix("ns", iri(namespace)))
+				.prefix(prefix("", iri("http://www.default.com/#")))
 				.select(name, test, person)
 				.where(and(
 						optional(tp(name, test, person)),
 						optional(union(
 								tp(name, person, test),
-								tp(uri(namespace, "base"), person,
+								tp(iri(namespace, "base"), person,
 										literal(5.)),
 								and(tp(name, person, test),
 										tp(name, person, test))))))
-				.orderBy(asc(name), desc(query.createQueryVariable())).limit(9)
+				.orderBy(asc(name), desc(query.var())).limit(9)
 				.offset(654);
 
 		System.out.println(query.getQueryString());
@@ -76,12 +76,12 @@ public class SpanqitTest extends BaseSpanqitTest {
 	public void customTest() {
 		String foaf = "http://xmlns.com/foaf/0.1/";
 		SelectQuery sq = new SelectQuery();
-		SparqlVariable name = sq.createQueryVariable();
-		SparqlVariable mbox = sq.createQueryVariable();
-		SparqlVariable x = sq.createQueryVariable();
+		SparqlVariable name = sq.var();
+		SparqlVariable mbox = sq.var();
+		SparqlVariable x = sq.var();
 
-		sq.select(name, mbox).where(tp(x, uri(foaf, "name"), name),
-				tp(x, uri(foaf, "mbox"), mbox));
+		sq.select(name, mbox).where(tp(x, iri(foaf, "name"), name),
+				tp(x, iri(foaf, "mbox"), mbox));
 
 		p(sq);
 	}
@@ -93,11 +93,11 @@ public class SpanqitTest extends BaseSpanqitTest {
 		
 		ConstructQuery cq = Queries.CONSTRUCT();
 
-		SparqlVariable x = cq.createQueryVariable();
-		SparqlVariable name = cq.createQueryVariable();
+		SparqlVariable x = cq.var();
+		SparqlVariable name = cq.var();
 
-		cq.construct(tp(x, uri(foaf, "name"), name)).where(
-				tp(x, uri(org, "name"), name));
+		cq.construct(tp(x, iri(foaf, "name"), name)).where(
+				tp(x, iri(org, "name"), name));
 
 		p(cq);
 	}
@@ -106,11 +106,11 @@ public class SpanqitTest extends BaseSpanqitTest {
 	public void regexTest() {
 		String dc = "http://purl.org/dc/elements/1.2/";
 		SelectQuery sq = new SelectQuery();
-		SparqlVariable title = sq.createQueryVariable();
-		SparqlVariable x = sq.createQueryVariable();
+		SparqlVariable title = sq.var();
+		SparqlVariable x = sq.var();
 
 		sq.select(title).where(and(
-				tp(x, uri(dc, "title"), title)).filter(
+				tp(x, iri(dc, "title"), title)).filter(
 						regex(title, "^SPARQL", "ig")));
 
 		p(sq);
@@ -121,13 +121,13 @@ public class SpanqitTest extends BaseSpanqitTest {
 		String dc = "http://purl.org/dc/elements/1.1/";
 		String ns = "http://example.org/ns#";
 		SelectQuery sq = new SelectQuery();
-		SparqlVariable title = sq.createQueryVariable();
-		SparqlVariable price = sq.createQueryVariable();
-		SparqlVariable x = sq.createQueryVariable();
+		SparqlVariable title = sq.var();
+		SparqlVariable price = sq.var();
+		SparqlVariable x = sq.var();
 
 		sq.select(title, price)
-		  .where(and(tp(x, uri(ns, "price"), price),
-		  			 tp(x, uri(dc, "title"), title))
+		  .where(and(tp(x, iri(ns, "price"), price),
+		  			 tp(x, iri(dc, "title"), title))
 		  		 .filter(lt(price, 30.5)));
 
 		p(sq);
@@ -141,7 +141,7 @@ public class SpanqitTest extends BaseSpanqitTest {
 	@Test
 	public void singleGraphPatternInQueryPattern() {
 		SelectQuery select = new SelectQuery();
-		SparqlVariable v1 = select.createQueryVariable(), v2 = select.createQueryVariable(), v3 = select.createQueryVariable();
+		SparqlVariable v1 = select.var(), v2 = select.var(), v3 = select.var();
 //		select.where(and(tp(v2, v2, v3)));
 		select.where(tp(v1, v2, v3), union(tp(v2, v2, v3)));
 		p(select);
