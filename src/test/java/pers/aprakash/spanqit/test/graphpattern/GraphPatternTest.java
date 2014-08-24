@@ -1,14 +1,14 @@
 package pers.aprakash.spanqit.test.graphpattern;
 
 import static pers.aprakash.spanqit.constraint.Expressions.not;
-import static pers.aprakash.spanqit.core.Elements.var;
+import static pers.aprakash.spanqit.core.Spanqit.var;
 
 import org.junit.Test;
 
 import pers.aprakash.spanqit.constraint.Expressions;
-import pers.aprakash.spanqit.core.Elements;
+import pers.aprakash.spanqit.core.Spanqit;
 import pers.aprakash.spanqit.core.QueryPattern;
-import pers.aprakash.spanqit.core.SparqlVariable;
+import pers.aprakash.spanqit.core.Variable;
 import pers.aprakash.spanqit.graphpattern.GraphPatternNotTriple;
 import pers.aprakash.spanqit.graphpattern.GraphPatterns;
 import pers.aprakash.spanqit.graphpattern.SubSelect;
@@ -16,10 +16,10 @@ import pers.aprakash.spanqit.rdf.IRI;
 import pers.aprakash.spanqit.test.BaseSpanqitTest;
 
 public class GraphPatternTest extends BaseSpanqitTest {
-	SparqlVariable name = var("name");
-	SparqlVariable address = var("address");
-	SparqlVariable name2 = var("name2");
-	SparqlVariable name3 = var("name3");
+	Variable name = var("name");
+	Variable address = var("address");
+	Variable name2 = var("name2");
+	Variable name3 = var("name3");
 	IRI hasAddress = iri(namespace, "hasAddress");
 
 	@Test
@@ -65,7 +65,7 @@ public class GraphPatternTest extends BaseSpanqitTest {
 		
 		GraphPatternNotTriple patternA = GraphPatterns.union().optional();
 		
-		QueryPattern where = Elements.where();
+		QueryPattern where = Spanqit.where();
 		where.where(patternA);
 		
 		p(where);
@@ -77,11 +77,11 @@ public class GraphPatternTest extends BaseSpanqitTest {
 		patternA.union(and2);
 		p(where);
 		
-		where = Elements.where();
+		where = Spanqit.where();
 		GraphPatternNotTriple patternB = GraphPatterns.and(and1, and2);
 		p(where.where(patternB));
 		
-		where = Elements.where();
+		where = Spanqit.where();
 		GraphPatternNotTriple patternC = GraphPatterns.and(GraphPatterns.tp(name, address, name2)); 
 		p(where.where(patternC));
 	}

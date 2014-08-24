@@ -5,10 +5,10 @@ import static pers.aprakash.spanqit.constraint.Expressions.lt;
 import static pers.aprakash.spanqit.constraint.Expressions.not;
 import static pers.aprakash.spanqit.constraint.Expressions.or;
 import static pers.aprakash.spanqit.constraint.Expressions.regex;
-import static pers.aprakash.spanqit.core.Elements.asc;
-import static pers.aprakash.spanqit.core.Elements.base;
-import static pers.aprakash.spanqit.core.Elements.desc;
-import static pers.aprakash.spanqit.core.Elements.prefix;
+import static pers.aprakash.spanqit.core.Spanqit.asc;
+import static pers.aprakash.spanqit.core.Spanqit.base;
+import static pers.aprakash.spanqit.core.Spanqit.desc;
+import static pers.aprakash.spanqit.core.Spanqit.prefix;
 import static pers.aprakash.spanqit.graphpattern.GraphPatterns.and;
 import static pers.aprakash.spanqit.graphpattern.GraphPatterns.optional;
 import static pers.aprakash.spanqit.graphpattern.GraphPatterns.tp;
@@ -20,7 +20,7 @@ import pers.aprakash.spanqit.core.ConstructQuery;
 import pers.aprakash.spanqit.core.Queries;
 //import pers.aprakash.spanqit.core.ConstructQuery;
 import pers.aprakash.spanqit.core.SelectQuery;
-import pers.aprakash.spanqit.core.SparqlVariable;
+import pers.aprakash.spanqit.core.Variable;
 
 public class SpanqitTest extends BaseSpanqitTest {
 	String namespace = "http://www.spanqit.com/#";
@@ -29,9 +29,9 @@ public class SpanqitTest extends BaseSpanqitTest {
 	public void constraintTest() {
 		SelectQuery sq = new SelectQuery();
 
-		SparqlVariable name = sq.var();
-		SparqlVariable test = sq.var();
-		SparqlVariable person = sq.var();
+		Variable name = sq.var();
+		Variable test = sq.var();
+		Variable person = sq.var();
 
 		sq.select(name).where(
 				and(tp(name, test, person)).filter(
@@ -49,9 +49,9 @@ public class SpanqitTest extends BaseSpanqitTest {
 	public void test() {
 		SelectQuery query = new SelectQuery();
 
-		SparqlVariable name = query.var();
-		SparqlVariable test = query.var();
-		SparqlVariable person = query.var();
+		Variable name = query.var();
+		Variable test = query.var();
+		Variable person = query.var();
 
 		query.base(base(iri(namespace, "base")))
 				.prefix(prefix("ns", iri(namespace)))
@@ -76,9 +76,9 @@ public class SpanqitTest extends BaseSpanqitTest {
 	public void customTest() {
 		String foaf = "http://xmlns.com/foaf/0.1/";
 		SelectQuery sq = new SelectQuery();
-		SparqlVariable name = sq.var();
-		SparqlVariable mbox = sq.var();
-		SparqlVariable x = sq.var();
+		Variable name = sq.var();
+		Variable mbox = sq.var();
+		Variable x = sq.var();
 
 		sq.select(name, mbox).where(tp(x, iri(foaf, "name"), name),
 				tp(x, iri(foaf, "mbox"), mbox));
@@ -93,8 +93,8 @@ public class SpanqitTest extends BaseSpanqitTest {
 		
 		ConstructQuery cq = Queries.CONSTRUCT();
 
-		SparqlVariable x = cq.var();
-		SparqlVariable name = cq.var();
+		Variable x = cq.var();
+		Variable name = cq.var();
 
 		cq.construct(tp(x, iri(foaf, "name"), name)).where(
 				tp(x, iri(org, "name"), name));
@@ -106,8 +106,8 @@ public class SpanqitTest extends BaseSpanqitTest {
 	public void regexTest() {
 		String dc = "http://purl.org/dc/elements/1.2/";
 		SelectQuery sq = new SelectQuery();
-		SparqlVariable title = sq.var();
-		SparqlVariable x = sq.var();
+		Variable title = sq.var();
+		Variable x = sq.var();
 
 		sq.select(title).where(and(
 				tp(x, iri(dc, "title"), title)).filter(
@@ -121,9 +121,9 @@ public class SpanqitTest extends BaseSpanqitTest {
 		String dc = "http://purl.org/dc/elements/1.1/";
 		String ns = "http://example.org/ns#";
 		SelectQuery sq = new SelectQuery();
-		SparqlVariable title = sq.var();
-		SparqlVariable price = sq.var();
-		SparqlVariable x = sq.var();
+		Variable title = sq.var();
+		Variable price = sq.var();
+		Variable x = sq.var();
 
 		sq.select(title, price)
 		  .where(and(tp(x, iri(ns, "price"), price),
@@ -141,7 +141,7 @@ public class SpanqitTest extends BaseSpanqitTest {
 	@Test
 	public void singleGraphPatternInQueryPattern() {
 		SelectQuery select = new SelectQuery();
-		SparqlVariable v1 = select.var(), v2 = select.var(), v3 = select.var();
+		Variable v1 = select.var(), v2 = select.var(), v3 = select.var();
 //		select.where(and(tp(v2, v2, v3)));
 		select.where(tp(v1, v2, v3), union(tp(v2, v2, v3)));
 		p(select);
