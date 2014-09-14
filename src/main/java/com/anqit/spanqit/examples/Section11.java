@@ -1,14 +1,16 @@
-package pers.aprakash.spanqit.examples;
+package com.anqit.spanqit.examples;
 
 import org.junit.Test;
 
-import pers.aprakash.spanqit.constraint.Expression;
-import pers.aprakash.spanqit.constraint.ExpressionOperands;
-import pers.aprakash.spanqit.constraint.Expressions;
-import pers.aprakash.spanqit.core.Assignment;
-import pers.aprakash.spanqit.core.Prefix;
-import pers.aprakash.spanqit.core.Spanqit;
-import pers.aprakash.spanqit.core.Variable;
+import com.anqit.spanqit.constraint.Expression;
+import com.anqit.spanqit.constraint.ExpressionOperands;
+import com.anqit.spanqit.constraint.Expressions;
+import com.anqit.spanqit.core.Assignment;
+import com.anqit.spanqit.core.Prefix;
+import com.anqit.spanqit.core.Spanqit;
+import com.anqit.spanqit.core.Variable;
+
+import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
 
 public class Section11 extends BaseExamples {
 	@Test

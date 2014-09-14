@@ -1,15 +1,17 @@
-package pers.aprakash.spanqit.examples;
+package com.anqit.spanqit.examples;
 
 import org.junit.Test;
 
-import pers.aprakash.spanqit.core.Dataset;
-import pers.aprakash.spanqit.core.From;
-import pers.aprakash.spanqit.core.Prefix;
-import pers.aprakash.spanqit.core.Spanqit;
-import pers.aprakash.spanqit.core.Variable;
-import pers.aprakash.spanqit.graphpattern.GraphPattern;
-import pers.aprakash.spanqit.graphpattern.GraphPatterns;
-import pers.aprakash.spanqit.rdf.IRI;
+import com.anqit.spanqit.core.Dataset;
+import com.anqit.spanqit.core.From;
+import com.anqit.spanqit.core.Prefix;
+import com.anqit.spanqit.core.Spanqit;
+import com.anqit.spanqit.core.Variable;
+import com.anqit.spanqit.graphpattern.GraphPattern;
+import com.anqit.spanqit.graphpattern.GraphPatterns;
+import com.anqit.spanqit.rdf.IRI;
+
+import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
 
 public class Section13 extends BaseExamples {
 	@Test

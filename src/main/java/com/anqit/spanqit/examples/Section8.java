@@ -1,17 +1,19 @@
-package pers.aprakash.spanqit.examples;
+package com.anqit.spanqit.examples;
 
 import org.junit.Test;
 
-import pers.aprakash.spanqit.constraint.Expression;
-import pers.aprakash.spanqit.constraint.Expressions;
-import pers.aprakash.spanqit.core.Prefix;
-import pers.aprakash.spanqit.core.QueryPattern;
-import pers.aprakash.spanqit.core.Spanqit;
-import pers.aprakash.spanqit.core.Variable;
-import pers.aprakash.spanqit.graphpattern.GraphPattern;
-import pers.aprakash.spanqit.graphpattern.GraphPatternNotTriple;
-import pers.aprakash.spanqit.graphpattern.GraphPatterns;
-import pers.aprakash.spanqit.rdf.IRI;
+import com.anqit.spanqit.constraint.Expression;
+import com.anqit.spanqit.constraint.Expressions;
+import com.anqit.spanqit.core.Prefix;
+import com.anqit.spanqit.core.QueryPattern;
+import com.anqit.spanqit.core.Spanqit;
+import com.anqit.spanqit.core.Variable;
+import com.anqit.spanqit.graphpattern.GraphPattern;
+import com.anqit.spanqit.graphpattern.GraphPatternNotTriple;
+import com.anqit.spanqit.graphpattern.GraphPatterns;
+import com.anqit.spanqit.rdf.IRI;
+
+import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
 
 public class Section8 extends BaseExamples {
 	@Test

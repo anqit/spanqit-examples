@@ -1,21 +1,25 @@
-package pers.aprakash.spanqit.examples;
+package com.anqit.spanqit.examples;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 
-import pers.aprakash.spanqit.core.Queries;
-import pers.aprakash.spanqit.core.SelectQuery;
-import pers.aprakash.spanqit.test.BaseSpanqitTest;
+import com.anqit.spanqit.core.Queries;
+import com.anqit.spanqit.core.QueryElement;
+import com.anqit.spanqit.core.SelectQuery;
 
 /**
- * 
+ * The classes inheriting from this pose as examples on how to use Spanqit.
+ * They follow the SPARQL 1.1 Spec linked below. Each class covers a section
+ * of the spec, documenting how to create the example SPARQL queries in each
+ * section using Spanqit.
+ *  
  * @author Ankit
  * @see <a href="http://www.w3.org/TR/2013/REC-sparql11-query-20130321/"> The
  *      referenced SPARQL 1.1 Spec</a>
  */
 
-public class BaseExamples extends BaseSpanqitTest {
+public class BaseExamples {
 	protected static final String EXAMPLE_COM_NS = "https://example.com/ns#";
 	protected static final String EXAMPLE_ORG_NS = "https://example.org/ns#";
 	protected static final String EXAMPLE_ORG_BOOK_NS = "http://example.org/book/";
@@ -34,14 +38,22 @@ public class BaseExamples extends BaseSpanqitTest {
 		printTestHeader();
 	}
 
-	protected void resetQuery() {
-		query = Queries.SELECT();
+	protected void p(QueryElement qe) {
+		p(qe.getQueryString());
 	}
 
+	protected void p(String s) {
+		System.out.println(s);
+	}
+	
 	protected void p() {
 		p(query);
 	}
 
+	protected void resetQuery() {
+		query = Queries.SELECT();
+	}
+	
 	private void printTestHeader() {
 		String name = testName.getMethodName();
 		String[] tokens = name.split("_");

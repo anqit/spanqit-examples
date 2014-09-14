@@ -1,13 +1,15 @@
-package pers.aprakash.spanqit.examples;
+package com.anqit.spanqit.examples;
 
 import org.junit.Test;
 
-import pers.aprakash.spanqit.core.Prefix;
-import pers.aprakash.spanqit.core.Spanqit;
-import pers.aprakash.spanqit.core.Variable;
-import pers.aprakash.spanqit.graphpattern.GraphPattern;
-import pers.aprakash.spanqit.graphpattern.GraphPatterns;
-import pers.aprakash.spanqit.rdf.IRI;
+import com.anqit.spanqit.core.Prefix;
+import com.anqit.spanqit.core.Spanqit;
+import com.anqit.spanqit.core.Variable;
+import com.anqit.spanqit.graphpattern.GraphPattern;
+import com.anqit.spanqit.graphpattern.GraphPatterns;
+import com.anqit.spanqit.rdf.IRI;
+
+import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
 
 public class Section7 extends BaseExamples {
 	@Test
@@ -30,15 +32,15 @@ public class Section7 extends BaseExamples {
 		resetQuery();
 		Variable x = query.var(), y = query.var(), author = Spanqit
 				.var("author");
-		GraphPattern dc10Title = book.has(dc10TitleIri, x), dc11Title = book
-				.has(dc11TitleIri, y);
+		GraphPattern dc10Title = book.has(dc10TitleIri, x),
+				dc11Title = book.has(dc11TitleIri, y);
 		query.prefix(dc10, dc11).select(title, author)
 				.where(GraphPatterns.union(dc10Title, dc11Title));
 		p();
 
 		resetQuery();
-		GraphPattern dc10Author = book.has(dc10.iri("creator"), author), dc11Author = book
-				.has(dc11.iri("creator"), author);
+		GraphPattern dc10Author = book.has(dc10.iri("creator"), author),
+				dc11Author = book.has(dc11.iri("creator"), author);
 		dc10Title = book.has(dc10TitleIri, title);
 		dc11Title = book.has(dc11TitleIri, title);
 		query.prefix(dc10, dc11)
