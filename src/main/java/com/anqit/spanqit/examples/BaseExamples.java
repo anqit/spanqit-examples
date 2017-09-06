@@ -38,16 +38,16 @@ public class BaseExamples {
 		printTestHeader();
 	}
 
+	protected void p() {
+		p(query);
+	}
+
 	protected void p(QueryElement qe) {
 		p(qe.getQueryString());
 	}
 
 	protected void p(String s) {
 		System.out.println(s);
-	}
-	
-	protected void p() {
-		p(query);
 	}
 
 	protected void resetQuery() {
