@@ -9,7 +9,7 @@ import com.anqit.spanqit.core.Spanqit;
 import com.anqit.spanqit.core.Variable;
 import com.anqit.spanqit.graphpattern.GraphPattern;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
-import com.anqit.spanqit.rdf.IRI;
+import com.anqit.spanqit.rdf.Iri;
 
 import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
 
@@ -93,7 +93,7 @@ public class Section13 extends BaseExamples {
 		Variable mbox = query.var(), nick = query.var(), ppd = query.var(),
 				alice = query.var(), whom = query.var(), w = query.var();
 		
-		IRI foafMbox = foaf.iri("mbox");
+		Iri foafMbox = foaf.iri("mbox");
 		
 		GraphPattern aliceFoafGraph = GraphPatterns.and(
 				alice.has(foafMbox, iri("mailto:bob@work.example")),

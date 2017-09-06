@@ -11,7 +11,7 @@ import com.anqit.spanqit.core.Variable;
 import com.anqit.spanqit.graphpattern.GraphPattern;
 import com.anqit.spanqit.graphpattern.GraphPatternNotTriple;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
-import com.anqit.spanqit.rdf.IRI;
+import com.anqit.spanqit.rdf.Iri;
 
 import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
 
@@ -65,7 +65,7 @@ public class Section8 extends BaseExamples {
 	public void example_8_3_2() {
 		Prefix base = Spanqit.prefix(iri("http://example/"));
 		Variable s = query.var(), p = query.var(), o = query.var();
-		IRI a = base.iri("a"), b = base.iri("b"), c = base.iri("c");
+		Iri a = base.iri("a"), b = base.iri("b"), c = base.iri("c");
 		
 		query.prefix(base).all().where(GraphPatterns.and(s.has(p, o)).filterNotExists(GraphPatterns.tp(a, b, c)));
 		p();

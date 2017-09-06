@@ -7,7 +7,7 @@ import com.anqit.spanqit.core.Spanqit;
 import com.anqit.spanqit.core.Variable;
 import com.anqit.spanqit.graphpattern.GraphPattern;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
-import com.anqit.spanqit.rdf.IRI;
+import com.anqit.spanqit.rdf.Iri;
 
 import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
 
@@ -20,8 +20,8 @@ public class Section7 extends BaseExamples {
 		Variable title = Spanqit.var("title"), book = Spanqit
 				.var("book");
 		
-		IRI dc10TitleIri = dc10.iri("title");
-		IRI dc11TitleIri = dc11.iri("title");
+		Iri dc10TitleIri = dc10.iri("title");
+		Iri dc11TitleIri = dc11.iri("title");
 
 		GraphPattern titlePattern = GraphPatterns.union(
 				book.has(dc10TitleIri, title), book.has(dc11TitleIri, title));

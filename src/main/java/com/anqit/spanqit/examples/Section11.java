@@ -3,12 +3,12 @@ package com.anqit.spanqit.examples;
 import org.junit.Test;
 
 import com.anqit.spanqit.constraint.Expression;
-import com.anqit.spanqit.constraint.ExpressionOperands;
 import com.anqit.spanqit.constraint.Expressions;
 import com.anqit.spanqit.core.Assignment;
 import com.anqit.spanqit.core.Prefix;
 import com.anqit.spanqit.core.Spanqit;
 import com.anqit.spanqit.core.Variable;
+import com.anqit.spanqit.rdf.RdfLiteral;
 
 import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
 
@@ -57,7 +57,7 @@ public class Section11 extends BaseExamples {
 	public void example_11_4() {
 		Prefix base = Spanqit.prefix(iri("http://example.com/data/#"));
 		Variable x = query.var(), y = query.var(), z = query.var(), min = query.var();
-		Expression<?> twiceMin = Expressions.multiply(Expressions.min(y), ExpressionOperands.numberOperand(2));
+		Expression<?> twiceMin = Expressions.multiply(Expressions.min(y), RdfLiteral.of(2));
 		
 		query.prefix(base)
 			.select(x, twiceMin.as(min))
@@ -71,7 +71,7 @@ public class Section11 extends BaseExamples {
 		Prefix base = Spanqit.prefix(iri("http://example.com/data/#"));
 		Variable g = query.var(), p = query.var(), avg = query.var(), c = query.var();
 		// TODO: fix paranthecising (sp?) compound expressions
-		Expression<?> midRange = Expressions.divide(Expressions.add(Expressions.min(p), Expressions.max(p)), ExpressionOperands.numberOperand(2));
+		Expression<?> midRange = Expressions.divide(Expressions.add(Expressions.min(p), Expressions.max(p)), RdfLiteral.of(2));
 		
 		query.prefix(base)
 			.select(g, Expressions.avg(p).as(avg), midRange.as(c))
