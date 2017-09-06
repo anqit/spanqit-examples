@@ -1,12 +1,16 @@
 package com.anqit.spanqit.examples;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 
-import com.anqit.spanqit.core.Queries;
 import com.anqit.spanqit.core.QueryElement;
-import com.anqit.spanqit.core.SelectQuery;
+import com.anqit.spanqit.core.query.Queries;
+import com.anqit.spanqit.core.query.SelectQuery;
+
 
 /**
  * The classes inheriting from this pose as examples on how to use Spanqit.
@@ -14,7 +18,6 @@ import com.anqit.spanqit.core.SelectQuery;
  * of the spec, documenting how to create the example SPARQL queries in each
  * section using Spanqit.
  *  
- * @author Ankit
  * @see <a href="http://www.w3.org/TR/2013/REC-sparql11-query-20130321/"> The
  *      referenced SPARQL 1.1 Spec</a>
  */
@@ -38,16 +41,16 @@ public class BaseExamples {
 		printTestHeader();
 	}
 
-	protected void p(QueryElement qe) {
-		p(qe.getQueryString());
+	protected void p() {
+		p(query);
+	}
+
+	protected void p(QueryElement... qe) {
+		p(Arrays.stream(qe).map(QueryElement::getQueryString).collect(Collectors.joining(" ;\n\n")));
 	}
 
 	protected void p(String s) {
 		System.out.println(s);
-	}
-	
-	protected void p() {
-		p(query);
 	}
 
 	protected void resetQuery() {
@@ -58,7 +61,7 @@ public class BaseExamples {
 		String name = testName.getMethodName();
 		String[] tokens = name.split("_");
 
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder("\n");
 		sb.append(tokens[0].toUpperCase()).append(" ");
 
 		boolean first = true;
