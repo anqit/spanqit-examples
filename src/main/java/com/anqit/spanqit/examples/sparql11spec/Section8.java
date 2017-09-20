@@ -1,4 +1,6 @@
-package com.anqit.spanqit.examples;
+package com.anqit.spanqit.examples.sparql11spec;
+
+import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.iri;
 
 import org.junit.Test;
 
@@ -8,12 +10,12 @@ import com.anqit.spanqit.core.Prefix;
 import com.anqit.spanqit.core.QueryPattern;
 import com.anqit.spanqit.core.Spanqit;
 import com.anqit.spanqit.core.Variable;
+import com.anqit.spanqit.examples.BaseExamples;
 import com.anqit.spanqit.graphpattern.GraphPattern;
 import com.anqit.spanqit.graphpattern.GraphPatternNotTriple;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
 import com.anqit.spanqit.rdf.Iri;
-
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
+import com.anqit.spanqit.rdf.RdfLiteral;
 
 public class Section8 extends BaseExamples {
 	@Test
@@ -53,10 +55,12 @@ public class Section8 extends BaseExamples {
 		Prefix base = Spanqit.prefix(iri("http://example/"));
 		Prefix foaf = Spanqit.prefix("foaf", iri(FOAF_NS));
 		Variable s = query.var();
-
+/*
+ * "{ ?s ?x1 ?x2} MINUS { ?s foaf:givenName "Bob" }
+ */
 		GraphPattern allNotNamedBob = GraphPatterns.and(
 				s.has(query.var(), query.var())).minus(
-				s.has(foaf.iri("givenName"), literal("Bob")));
+				s.has(foaf.iri("givenName"), RdfLiteral.of("Bob")));
 		query.prefix(base, foaf).select(s).distinct().where(allNotNamedBob);
 		p();
 	}

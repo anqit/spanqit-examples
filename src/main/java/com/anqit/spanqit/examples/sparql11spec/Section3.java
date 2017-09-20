@@ -1,4 +1,6 @@
-package com.anqit.spanqit.examples;
+package com.anqit.spanqit.examples.sparql11spec;
+
+import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.iri;
 
 import org.junit.Test;
 
@@ -7,12 +9,12 @@ import com.anqit.spanqit.constraint.Expressions;
 import com.anqit.spanqit.core.Prefix;
 import com.anqit.spanqit.core.Spanqit;
 import com.anqit.spanqit.core.Variable;
+import com.anqit.spanqit.examples.BaseExamples;
 import com.anqit.spanqit.graphpattern.GraphPattern;
 import com.anqit.spanqit.graphpattern.GraphPatternNotTriple;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
 import com.anqit.spanqit.graphpattern.TriplePattern;
-
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
+import com.anqit.spanqit.rdf.RdfLiteral;
 
 public class Section3 extends BaseExamples {
 	@Test
@@ -22,7 +24,7 @@ public class Section3 extends BaseExamples {
 		Variable x = query.var(), title = Spanqit.var("title");
 		TriplePattern xTitle = GraphPatterns.tp(x, dc.iri("title"), title);
 		
-		Expression<?> regex = Expressions.regex(title, literal("^SPARQL"));
+		Expression<?> regex = Expressions.regex(title, RdfLiteral.of("^SPARQL"));
 		GraphPatternNotTriple where = GraphPatterns.and(xTitle).filter(regex);
 
 		query.prefix(dc).select(title).where(where);

@@ -4,9 +4,10 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 
-import com.anqit.spanqit.core.Queries;
 import com.anqit.spanqit.core.QueryElement;
-import com.anqit.spanqit.core.SelectQuery;
+import com.anqit.spanqit.core.query.Queries;
+import com.anqit.spanqit.core.query.SelectQuery;
+
 
 /**
  * The classes inheriting from this pose as examples on how to use Spanqit.
