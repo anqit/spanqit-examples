@@ -15,7 +15,6 @@ import com.anqit.spanqit.core.query.SelectQuery;
  * of the spec, documenting how to create the example SPARQL queries in each
  * section using Spanqit.
  *  
- * @author Ankit
  * @see <a href="http://www.w3.org/TR/2013/REC-sparql11-query-20130321/"> The
  *      referenced SPARQL 1.1 Spec</a>
  */

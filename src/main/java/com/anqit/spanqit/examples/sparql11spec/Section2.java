@@ -1,8 +1,6 @@
 package com.anqit.spanqit.examples.sparql11spec;
 
 import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.iri;
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.literalWithDatatype;
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.literalWithLangTag;
 
 import org.junit.Test;
 
@@ -60,7 +58,7 @@ public class Section2 extends BaseExamples {
 		p();
 
 		SelectQuery queryWithLangTag = Queries.SELECT();
-		TriplePattern v_hasP_cat_en = GraphPatterns.tp(v, p, literalWithLangTag("cat", "en"));
+		TriplePattern v_hasP_cat_en = GraphPatterns.tp(v, p, RdfLiteral.ofLanguage("cat", "en"));
 		queryWithLangTag.select(v).where(v_hasP_cat_en);
 		p(queryWithLangTag);
 	}
@@ -79,7 +77,7 @@ public class Section2 extends BaseExamples {
 	public void example_2_3_3() {
 		String datatype = "specialDatatype";
 		Variable v = query.var(), p = query.var();
-		TriplePattern v_hasP_abc_dt = GraphPatterns.tp(v, p, literalWithDatatype("abc", EXAMPLE_DATATYPE_NS, datatype));
+		TriplePattern v_hasP_abc_dt = GraphPatterns.tp(v, p, RdfLiteral.ofType("abc", iri(EXAMPLE_DATATYPE_NS, datatype)));
 
 		query.select(v).where(v_hasP_abc_dt);
 		p();
