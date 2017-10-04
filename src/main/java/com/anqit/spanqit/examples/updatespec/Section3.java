@@ -21,10 +21,14 @@ import com.anqit.spanqit.graphpattern.TriplePattern;
 import com.anqit.spanqit.rdf.Iri;
 import com.anqit.spanqit.rdf.RdfLiteral;
 
+import static com.anqit.spanqit.graphpattern.GraphPatterns.and;
+
 public class Section3 extends BaseExamples {
 	Prefix dc = Spanqit.prefix(DC.NS.getPrefix(), iri(DC.NS.getName()));
 	Prefix ns = Spanqit.prefix("ns", iri(EXAMPLE_ORG_NS));
 	Prefix foaf = Spanqit.prefix("foaf", iri(FOAF.NAMESPACE));
+	Prefix xsd = Spanqit.prefix("xsd", iri("http://www.w3.org/2001/XMLSchema#"));
+	Prefix rdf = Spanqit.prefix("rdf", iri("http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
 
 	@Test
 	public void example_1() {
@@ -81,7 +85,6 @@ public class Section3 extends BaseExamples {
 	
 	@Test
 	public void example_4() {
-
 //		PREFIX dc: <http://purl.org/dc/elements/1.1/>
 //		DELETE DATA
 //			{ GRAPH <http://example/bookStore> { <http://example/book1>  dc:title  "Fundamentals of Compiler Desing" } } ;
@@ -94,9 +97,9 @@ public class Section3 extends BaseExamples {
 				exampleBook = iri("http://example/book1"),
 				title = dc.iri("title");
 
-		p(Queries.DELETE_DATA().prefix(dc).deleteData(exampleBook.has(title, "Fundamentals of Compiler Desing")).from(bookStore));
-		p(";");
-		p(Queries.INSERT_DATA().prefix(dc).insertData(exampleBook.has(title, "Fundamentals of Compiler Design")).into(bookStore));
+		DeleteDataQuery deleteTypoQuery = Queries.DELETE_DATA().prefix(dc).deleteData(exampleBook.has(title, "Fundamentals of Compiler Desing")).from(bookStore);
+		InsertDataQuery insertFixedTitleQuery = Queries.INSERT_DATA().prefix(dc).insertData(exampleBook.has(title, "Fundamentals of Compiler Design")).into(bookStore);
+		p(deleteTypoQuery, insertFixedTitleQuery);
 	}
 	
 	@Test
@@ -152,7 +155,7 @@ public class Section3 extends BaseExamples {
 //		   FILTER ( ?date > "1970-01-01T00:00:00-02:00"^^xsd:dateTime )
 //		   ?book ?p ?v
 //		 }
-		Prefix xsd = Spanqit.prefix("xsd", iri("http://www.w3.org/2001/XMLSchema#"));
+
 		Variable book = Spanqit.var("book"), p = Spanqit.var("p"), v = Spanqit.var("v"), date = Spanqit.var("date");
 				
 		ModifyQuery modify = Queries.MODIFY();
@@ -163,5 +166,73 @@ public class Section3 extends BaseExamples {
 					book.has(p, v))
 					.filter(Expressions.gt(date, RdfLiteral.ofType("1970-01-01T00:00:00-02:00", xsd.iri("dateTime")))));
 		p(modify);
+	}
+	
+	@Test
+	public void example_7() {
+//		PREFIX foaf:  <http://xmlns.com/foaf/0.1/>
+//
+//		WITH <http://example/addresses>
+//		DELETE { ?person ?property ?value } 
+//		WHERE { ?person ?property ?value ; foaf:givenName 'Fred' } 
+		Variable person = Spanqit.var("person"), property = Spanqit.var("property"), value = Spanqit.var("value");
+		
+		ModifyQuery modify = Queries.MODIFY().prefix(foaf).with(iri("http://example/addresses"))
+				.delete(person.has(property, value))
+				.where(person.has(property, value).andHas(foaf.iri("givenName"), "Fred"));
+		
+		p(modify);
+	}
+	
+	@Test
+	public void example_8() {
+//		PREFIX dc:  <http://purl.org/dc/elements/1.1/>
+//		PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+//
+//		INSERT 
+//		  { GRAPH <http://example/bookStore2> { ?book ?p ?v } }
+//		WHERE
+//		  { GRAPH  <http://example/bookStore>
+//		       { ?book dc:date ?date .
+//		         FILTER ( ?date > "1970-01-01T00:00:00-02:00"^^xsd:dateTime )
+//		         ?book ?p ?v
+//		  } }
+		Variable book = Spanqit.var("book"), p = Spanqit.var("p"), v = Spanqit.var("v"), date = Spanqit.var("date");
+
+		p(Queries.MODIFY().prefix(dc, xsd)
+				.insert(book.has(p, v)).into(iri("http://example/bookStore2"))
+				.where(and(book.has(dc.iri("date"), date), book.has(p, v))
+						.from(iri("http://example/bookStore"))
+						.filter(Expressions.gt(date, RdfLiteral.ofType("1970-01-01T00:00:00-02:00", xsd.iri("dateTime"))))));
+	}
+	
+	@Test
+	public void example_9() {
+//		PREFIX foaf:  <http://xmlns.com/foaf/0.1/>
+//		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+//
+//		INSERT 
+//		  { GRAPH <http://example/addresses>
+//		    {
+//		      ?person  foaf:name  ?name .
+//		      ?person  foaf:mbox  ?email
+//		    } }
+//		WHERE
+//		  { GRAPH  <http://example/people>
+//		    {
+//		      ?person  foaf:name  ?name .
+//		      OPTIONAL { ?person  foaf:mbox  ?email }
+//		    } }
+		Variable person = Spanqit.var("person"), name = Spanqit.var("name"), email = Spanqit.var("email");
+		TriplePattern personNameTriple = person.has(foaf.iri("name"), name),
+				personEmailTriple = person.has(foaf.iri("mbox"), email);
+
+		ModifyQuery insertAddressesQuery = Queries.MODIFY().prefix(foaf, rdf)
+			.insert(personNameTriple, personEmailTriple)
+			.into(iri("http://example/addresses"))
+			.where(and(personNameTriple, GraphPatterns.optional(personEmailTriple))
+					.from(iri("http://example/people")));
+		
+		p(insertAddressesQuery);
 	}
 }

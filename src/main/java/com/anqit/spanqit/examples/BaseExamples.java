@@ -1,5 +1,8 @@
 package com.anqit.spanqit.examples;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
@@ -42,8 +45,8 @@ public class BaseExamples {
 		p(query);
 	}
 
-	protected void p(QueryElement qe) {
-		p(qe.getQueryString());
+	protected void p(QueryElement... qe) {
+		p(Arrays.stream(qe).map(QueryElement::getQueryString).collect(Collectors.joining(" ;\n\n")));
 	}
 
 	protected void p(String s) {
@@ -58,7 +61,7 @@ public class BaseExamples {
 		String name = testName.getMethodName();
 		String[] tokens = name.split("_");
 
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder("\n");
 		sb.append(tokens[0].toUpperCase()).append(" ");
 
 		boolean first = true;
