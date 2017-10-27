@@ -1,6 +1,6 @@
 package com.anqit.spanqit.examples.sparql11spec;
 
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.iri;
+import static com.anqit.spanqit.adapter.rdf4j.Rdf4JSpanqitAdapter.iri;
 
 import org.junit.Test;
 
@@ -52,7 +52,7 @@ public class Section2 extends BaseExamples {
 	public void example_2_3() {
 		Variable v = query.var(), p = query.var();
 
-		TriplePattern v_hasP_cat = GraphPatterns.tp(v, p, RdfLiteral.of("\"cat\""));
+		TriplePattern v_hasP_cat = GraphPatterns.tp(v, p, RdfLiteral.of("cat"));
 
 		query.select(v).where(v_hasP_cat);
 		p();
@@ -82,11 +82,18 @@ public class Section2 extends BaseExamples {
 		query.select(v).where(v_hasP_abc_dt);
 		p();
 	}
+	
+	@Test
+	public void example_2_4() {
+		Prefix foaf = Spanqit.prefix("foaf", iri(FOAF_NS));
+
+		Variable x = query.var(), name = query.var();
+		query.prefix(foaf).select(x, name).where(x.has(foaf.iri("name"), name));
+		p();
+	}
 
 	@Test
 	public void example_2_5() {
-		// except property paths...
-
 		Prefix foaf = Spanqit.prefix("foaf", iri(FOAF_NS));
 		Variable G = Spanqit.var("G"),
 				P = Spanqit.var("P"), 
@@ -94,8 +101,8 @@ public class Section2 extends BaseExamples {
 
 		Assignment concatAsName = Spanqit.as(Expressions.concat(G, RdfLiteral.of(" "), S), name);
 
-		query.prefix(foaf).select(concatAsName).where(GraphPatterns.tp(P, foaf.iri("givenName"), G),
-				GraphPatterns.tp(P, foaf.iri("surname"), S));
+		query.prefix(foaf).select(concatAsName).where(
+				GraphPatterns.tp(P, foaf.iri("givenName"), G).andHas(foaf.iri("surname"), S));
 		p();
 
 		// TODO add BIND() capability in graph patterns (also show example of

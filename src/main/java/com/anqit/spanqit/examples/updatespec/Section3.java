@@ -1,10 +1,10 @@
 package com.anqit.spanqit.examples.updatespec;
 
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.iri;
+import static com.anqit.spanqit.adapter.rdf4j.Rdf4JSpanqitAdapter.iri;
 
 import org.junit.Test;
-import org.openrdf.model.vocabulary.DC;
-import org.openrdf.model.vocabulary.FOAF;
+import org.eclipse.rdf4j.model.vocabulary.DC;
+import org.eclipse.rdf4j.model.vocabulary.FOAF;
 
 import com.anqit.spanqit.constraint.Expressions;
 import com.anqit.spanqit.core.Prefix;

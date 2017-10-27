@@ -27,9 +27,9 @@
   		<version>1.1-SNAPSHOT</version>
   	</dependency>
   	<dependency>
-  		<groupId>com.anqit.OpenRdfSpanqitAdapter</groupId>
-  		<artifactId>OpenRdfSpanqitAdapter</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<groupId>com.anqit.spanqit.adapter</groupId>
+  		<artifactId>Rdf4JSpanqitAdapter</artifactId>
+		<version>0.1.0</version>
   	</dependency>
   </dependencies>
 </project>

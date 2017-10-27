@@ -1,6 +1,6 @@
 package com.anqit.spanqit.examples.sparql11spec;
 
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.iri;
+import static com.anqit.spanqit.adapter.rdf4j.Rdf4JSpanqitAdapter.iri;
 
 import org.junit.Test;
 
@@ -30,7 +30,7 @@ public class Section3 extends BaseExamples {
 		query.prefix(dc).select(title).where(where);
 		p();
 
-		where.filter(Expressions.regex(title, "^SPARQL", "i"));
+		where.filter(Expressions.regex(title, "web", "i"));
 		p();
 	}
 
