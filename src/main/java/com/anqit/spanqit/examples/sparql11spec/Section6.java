@@ -11,7 +11,7 @@ import com.anqit.spanqit.graphpattern.GraphPatternNotTriple;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
 import com.anqit.spanqit.graphpattern.TriplePattern;
 
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
+import static com.anqit.spanqit.adapter.rdf4j.Rdf4JSpanqitAdapter.iri;
 
 public class Section6 extends BaseExamples {
 	@Test
@@ -51,7 +51,7 @@ public class Section6 extends BaseExamples {
 				.var("hpage");
 		Variable x = query.var();
 
-		TriplePattern namePattern = x.has(iri(FOAF_NS, "name"), name);
+		TriplePattern namePattern = x.has(foaf.iri("name"), name);
 
 		query.prefix(foaf)
 				.select(name, mbox, hpage)

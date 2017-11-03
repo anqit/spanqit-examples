@@ -1,6 +1,6 @@
 package com.anqit.spanqit.examples.sparql11spec;
 
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.iri;
+import static com.anqit.spanqit.adapter.rdf4j.Rdf4JSpanqitAdapter.iri;
 
 import org.junit.Test;
 
@@ -14,6 +14,7 @@ import com.anqit.spanqit.rdf.Iri;
 import com.anqit.spanqit.rdf.RdfBlankNode;
 import com.anqit.spanqit.rdf.RdfBlankNode.PropertiesBlankNode;
 import com.anqit.spanqit.rdf.RdfLiteral;
+import com.anqit.spanqit.rdf.RdfPredicate;
 import com.anqit.spanqit.rdf.RdfLiteral.StringLiteral;
 
 public class Section4 extends BaseExamples {
@@ -22,22 +23,22 @@ public class Section4 extends BaseExamples {
 
 	@Test
 	public void example_4_1_4() {
-		Prefix defIri = Spanqit.prefix(iri(DC_NS));
+		Prefix defPrefix = Spanqit.prefix(iri(DC_NS));
 		
 		// [ :p "v" ] .
-		PropertiesBlankNode bnode = RdfBlankNode.bNode(defIri.iri("p"), RdfLiteral.of("v"));
+		PropertiesBlankNode bnode = RdfBlankNode.bNode(defPrefix.iri("p"), RdfLiteral.of("v"));
 		p(bnode.toTp());
 		
 		// [] :p "v" .
-		TriplePattern tp = RdfBlankNode.bNode().has(defIri.iri("p"), RdfLiteral.of("v"));
+		TriplePattern tp = RdfBlankNode.bNode().has(defPrefix.iri("p"), RdfLiteral.of("v"));
 		p(tp);
 		
 		//	[ :p "v" ] :q "w" .
-		tp = bnode.has(defIri.iri("q"), RdfLiteral.of("w"));
+		tp = bnode.has(defPrefix.iri("q"), RdfLiteral.of("w"));
 		p(tp);
 
 		// :x :q [ :p "v" ] .
-		tp = defIri.iri("x").has(defIri.iri("q"), bnode);
+		tp = defPrefix.iri("x").has(defPrefix.iri("q"), bnode);
 		p(tp);
 		
 		// [ foaf:name  ?name ;
@@ -68,5 +69,16 @@ public class Section4 extends BaseExamples {
 		
 		tp = x.has(nick, aliceNick, alice_Nick).andHas(foaf.iri("name"), name);
 		p(tp);
+	}
+	
+	@Test
+	public void example_4_2_4() {
+		Prefix defPrefix = Spanqit.prefix(iri(DC_NS));
+
+		// isA() is a shortcut method to create triples using the "a" keyword
+		p(Spanqit.var("x").isA(defPrefix.iri("Class1")));
+
+		// the isA predicate is a static member of RdfPredicate
+		p(RdfBlankNode.bNode(RdfPredicate.isA, defPrefix.iri("appClass")).has(defPrefix.iri("p"), "v"));
 	}
 }

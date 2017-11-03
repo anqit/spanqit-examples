@@ -11,7 +11,7 @@ import com.anqit.spanqit.examples.BaseExamples;
 import com.anqit.spanqit.graphpattern.GraphPattern;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
 
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
+import static com.anqit.spanqit.adapter.rdf4j.Rdf4JSpanqitAdapter.*;
 
 public class Section5 extends BaseExamples {
 	@Test
@@ -52,9 +52,11 @@ public class Section5 extends BaseExamples {
 
 		p(GraphPatterns.and(x.has(foaf.iri("name"), name),
 				x.has(foaf.iri("mbox"), mbox)));
+		p("");
 		p(GraphPatterns.and(x.has(foaf.iri("name"), name),
 				x.has(foaf.iri("mbox"), mbox)).filter(
 				Expressions.regex(name, "Smith")));
+		p("");
 		p(GraphPatterns.and(x.has(foaf.iri("name"), name),
 				GraphPatterns.and(), x.has(foaf.iri("mbox"), mbox)));
 	}

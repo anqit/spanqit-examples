@@ -1,6 +1,6 @@
 package com.anqit.spanqit.examples.sparql11spec;
 
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.iri;
+import static com.anqit.spanqit.adapter.rdf4j.Rdf4JSpanqitAdapter.iri;
 
 import org.junit.Test;
 
@@ -35,7 +35,7 @@ public class Section11 extends BaseExamples {
 		Prefix base = Spanqit.prefix(null);
 		Variable y = query.var(), avg = query.var(), a = query.var(), x = query.var();
 
-		query.select(Spanqit.as(Expressions.avg(y), avg)).where(a.has(base.iri("x"), x), a.has(base.iri("y"), y))
+		query.select(Spanqit.as(Expressions.avg(y), avg)).where(a.has(base.iri("x"), x).andHas(base.iri("y"), y))
 				.groupBy(x);
 		p();
 	}

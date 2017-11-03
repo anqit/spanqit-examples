@@ -97,7 +97,8 @@ public class Section2 extends BaseExamples {
 		Prefix foaf = Spanqit.prefix("foaf", iri(FOAF_NS));
 		Variable G = Spanqit.var("G"),
 				P = Spanqit.var("P"), 
-				S = Spanqit.var("S"), name = Spanqit.var("name");
+				S = Spanqit.var("S"),
+				name = Spanqit.var("name");
 
 		Assignment concatAsName = Spanqit.as(Expressions.concat(G, RdfLiteral.of(" "), S), name);
 

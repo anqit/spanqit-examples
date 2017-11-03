@@ -10,7 +10,7 @@ import com.anqit.spanqit.graphpattern.GraphPattern;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
 import com.anqit.spanqit.rdf.Iri;
 
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
+import static com.anqit.spanqit.adapter.rdf4j.Rdf4JSpanqitAdapter.*;
 
 public class Section7 extends BaseExamples {
 	@Test
@@ -35,7 +35,7 @@ public class Section7 extends BaseExamples {
 				.var("author");
 		GraphPattern dc10Title = book.has(dc10TitleIri, x),
 				dc11Title = book.has(dc11TitleIri, y);
-		query.prefix(dc10, dc11).select(title, author)
+		query.prefix(dc10, dc11).select(x, y)
 				.where(GraphPatterns.union(dc10Title, dc11Title));
 		p();
 
