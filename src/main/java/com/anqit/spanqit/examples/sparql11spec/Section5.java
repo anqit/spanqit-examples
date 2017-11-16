@@ -11,7 +11,7 @@ import com.anqit.spanqit.examples.BaseExamples;
 import com.anqit.spanqit.graphpattern.GraphPattern;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
 
-import static com.anqit.spanqit.adapter.rdf4j.Rdf4JSpanqitAdapter.*;
+import static com.anqit.spanqit.rdf.Rdf.iri;
 
 public class Section5 extends BaseExamples {
 	@Test

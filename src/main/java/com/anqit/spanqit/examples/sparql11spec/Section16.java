@@ -13,7 +13,7 @@ import com.anqit.spanqit.core.Variable;
 import com.anqit.spanqit.examples.BaseExamples;
 import com.anqit.spanqit.rdf.RdfLiteral;
 
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
+import static com.anqit.spanqit.rdf.Rdf.iri;
 
 public class Section16 extends BaseExamples {
 	@Test

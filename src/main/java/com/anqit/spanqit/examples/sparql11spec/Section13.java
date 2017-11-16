@@ -12,7 +12,7 @@ import com.anqit.spanqit.graphpattern.GraphPattern;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
 import com.anqit.spanqit.rdf.Iri;
 
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
+import static com.anqit.spanqit.rdf.Rdf.iri;
 
 public class Section13 extends BaseExamples {
 	@Test

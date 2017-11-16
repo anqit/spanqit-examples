@@ -1,10 +1,9 @@
 package com.anqit.spanqit.examples.updatespec;
 
-import static com.anqit.spanqit.adapter.rdf4j.Rdf4JSpanqitAdapter.iri;
+import static com.anqit.spanqit.graphpattern.GraphPatterns.and;
+import static com.anqit.spanqit.rdf.Rdf.iri;
 
 import org.junit.Test;
-import org.eclipse.rdf4j.model.vocabulary.DC;
-import org.eclipse.rdf4j.model.vocabulary.FOAF;
 
 import com.anqit.spanqit.constraint.Expressions;
 import com.anqit.spanqit.core.Prefix;
@@ -21,12 +20,10 @@ import com.anqit.spanqit.graphpattern.TriplePattern;
 import com.anqit.spanqit.rdf.Iri;
 import com.anqit.spanqit.rdf.RdfLiteral;
 
-import static com.anqit.spanqit.graphpattern.GraphPatterns.and;
-
 public class Section3 extends BaseExamples {
-	Prefix dc = Spanqit.prefix(DC.NS.getPrefix(), iri(DC.NS.getName()));
+	Prefix dc = Spanqit.prefix("dc", iri("http://purl.org/dc/elements/1.1/"));
 	Prefix ns = Spanqit.prefix("ns", iri(EXAMPLE_ORG_NS));
-	Prefix foaf = Spanqit.prefix("foaf", iri(FOAF.NAMESPACE));
+	Prefix foaf = Spanqit.prefix("foaf", iri("http://xmlns.com/foaf/0.1/"));
 	Prefix xsd = Spanqit.prefix("xsd", iri("http://www.w3.org/2001/XMLSchema#"));
 	Prefix rdf = Spanqit.prefix("rdf", iri("http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
 

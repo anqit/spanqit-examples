@@ -10,7 +10,7 @@ import com.anqit.spanqit.graphpattern.GraphPattern;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
 import com.anqit.spanqit.rdf.Iri;
 
-import static com.anqit.spanqit.adapter.rdf4j.Rdf4JSpanqitAdapter.*;
+import static com.anqit.spanqit.rdf.Rdf.iri;
 
 public class Section7 extends BaseExamples {
 	@Test

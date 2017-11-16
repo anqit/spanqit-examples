@@ -11,7 +11,7 @@ import com.anqit.spanqit.graphpattern.GraphPatternNotTriple;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
 import com.anqit.spanqit.graphpattern.TriplePattern;
 
-import static com.anqit.spanqit.adapter.rdf4j.Rdf4JSpanqitAdapter.iri;
+import static com.anqit.spanqit.rdf.Rdf.iri;
 
 public class Section6 extends BaseExamples {
 	@Test

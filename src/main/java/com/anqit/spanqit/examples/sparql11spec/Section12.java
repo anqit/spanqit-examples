@@ -10,7 +10,7 @@ import com.anqit.spanqit.examples.BaseExamples;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
 import com.anqit.spanqit.graphpattern.SubSelect;
 
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
+import static com.anqit.spanqit.rdf.Rdf.iri;
 
 public class Section12 extends BaseExamples {
 	@Test

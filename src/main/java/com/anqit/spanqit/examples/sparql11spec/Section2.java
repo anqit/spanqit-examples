@@ -1,6 +1,6 @@
 package com.anqit.spanqit.examples.sparql11spec;
 
-import static com.anqit.spanqit.adapter.rdf4j.Rdf4JSpanqitAdapter.iri;
+import static com.anqit.spanqit.rdf.Rdf.iri;
 
 import org.junit.Test;
 
