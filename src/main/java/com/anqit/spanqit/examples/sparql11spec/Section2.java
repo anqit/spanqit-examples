@@ -1,7 +1,5 @@
 package com.anqit.spanqit.examples.sparql11spec;
 
-import static com.anqit.spanqit.rdf.Rdf.iri;
-
 import org.junit.Test;
 
 import com.anqit.spanqit.constraint.Expressions;
@@ -16,14 +14,14 @@ import com.anqit.spanqit.core.query.SelectQuery;
 import com.anqit.spanqit.examples.BaseExamples;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
 import com.anqit.spanqit.graphpattern.TriplePattern;
-import com.anqit.spanqit.rdf.RdfLiteral;
+import com.anqit.spanqit.rdf.Rdf;
 
 public class Section2 extends BaseExamples {
 	@Test
 	public void example_2_1() {
 		Variable title = Spanqit.var("title");
 
-		TriplePattern book1_has_title = GraphPatterns.tp(iri(EXAMPLE_ORG_BOOK_NS, "book1"), iri(DC_NS, "title"), title);
+		TriplePattern book1_has_title = GraphPatterns.tp(Rdf.iri(EXAMPLE_ORG_BOOK_NS, "book1"), Rdf.iri(DC_NS, "title"), title);
 
 		query.select(title).where(book1_has_title);
 
@@ -32,7 +30,7 @@ public class Section2 extends BaseExamples {
 
 	@Test
 	public void example_2_2() {
-		Prefix foaf = Spanqit.prefix("foaf", iri(FOAF_NS));
+		Prefix foaf = Spanqit.prefix("foaf", Rdf.iri(FOAF_NS));
 
 		/**
 		 * As a shortcut, Query objects can create variables that will be unique to the
@@ -52,13 +50,13 @@ public class Section2 extends BaseExamples {
 	public void example_2_3() {
 		Variable v = query.var(), p = query.var();
 
-		TriplePattern v_hasP_cat = GraphPatterns.tp(v, p, RdfLiteral.of("cat"));
+		TriplePattern v_hasP_cat = GraphPatterns.tp(v, p, Rdf.literalOf("cat"));
 
 		query.select(v).where(v_hasP_cat);
 		p();
 
 		SelectQuery queryWithLangTag = Queries.SELECT();
-		TriplePattern v_hasP_cat_en = GraphPatterns.tp(v, p, RdfLiteral.ofLanguage("cat", "en"));
+		TriplePattern v_hasP_cat_en = GraphPatterns.tp(v, p, Rdf.literalOfLanguage("cat", "en"));
 		queryWithLangTag.select(v).where(v_hasP_cat_en);
 		p(queryWithLangTag);
 	}
@@ -67,7 +65,7 @@ public class Section2 extends BaseExamples {
 	public void example_2_3_2() {
 		Variable v = query.var(), p = query.var();
 
-		TriplePattern v_hasP_42 = GraphPatterns.tp(v, p, RdfLiteral.of(42));
+		TriplePattern v_hasP_42 = GraphPatterns.tp(v, p, Rdf.literalOf(42));
 
 		query.select(v).where(v_hasP_42);
 		p();
@@ -77,7 +75,7 @@ public class Section2 extends BaseExamples {
 	public void example_2_3_3() {
 		String datatype = "specialDatatype";
 		Variable v = query.var(), p = query.var();
-		TriplePattern v_hasP_abc_dt = GraphPatterns.tp(v, p, RdfLiteral.ofType("abc", iri(EXAMPLE_DATATYPE_NS, datatype)));
+		TriplePattern v_hasP_abc_dt = GraphPatterns.tp(v, p, Rdf.literalOfType("abc", Rdf.iri(EXAMPLE_DATATYPE_NS, datatype)));
 
 		query.select(v).where(v_hasP_abc_dt);
 		p();
@@ -85,7 +83,7 @@ public class Section2 extends BaseExamples {
 	
 	@Test
 	public void example_2_4() {
-		Prefix foaf = Spanqit.prefix("foaf", iri(FOAF_NS));
+		Prefix foaf = Spanqit.prefix("foaf", Rdf.iri(FOAF_NS));
 
 		Variable x = query.var(), name = query.var();
 		query.prefix(foaf).select(x, name).where(x.has(foaf.iri("name"), name));
@@ -94,13 +92,13 @@ public class Section2 extends BaseExamples {
 
 	@Test
 	public void example_2_5() {
-		Prefix foaf = Spanqit.prefix("foaf", iri(FOAF_NS));
+		Prefix foaf = Spanqit.prefix("foaf", Rdf.iri(FOAF_NS));
 		Variable G = Spanqit.var("G"),
 				P = Spanqit.var("P"), 
 				S = Spanqit.var("S"),
 				name = Spanqit.var("name");
 
-		Assignment concatAsName = Spanqit.as(Expressions.concat(G, RdfLiteral.of(" "), S), name);
+		Assignment concatAsName = Spanqit.as(Expressions.concat(G, Rdf.literalOf(" "), S), name);
 
 		query.prefix(foaf).select(concatAsName).where(
 				GraphPatterns.tp(P, foaf.iri("givenName"), G).andHas(foaf.iri("surname"), S));
@@ -113,8 +111,8 @@ public class Section2 extends BaseExamples {
 
 	@Test
 	public void example_2_6() {
-		Prefix foaf = Spanqit.prefix("foaf", iri(FOAF_NS)),
-				org = Spanqit.prefix("org", iri(EXAMPLE_COM_NS));
+		Prefix foaf = Spanqit.prefix("foaf", Rdf.iri(FOAF_NS)),
+				org = Spanqit.prefix("org", Rdf.iri(EXAMPLE_COM_NS));
 		PrefixDeclarations prefixes = Spanqit.prefixes(foaf, org);
 
 		ConstructQuery graphQuery = Queries.CONSTRUCT();

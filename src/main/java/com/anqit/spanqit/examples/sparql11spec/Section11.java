@@ -11,7 +11,7 @@ import com.anqit.spanqit.core.Prefix;
 import com.anqit.spanqit.core.Spanqit;
 import com.anqit.spanqit.core.Variable;
 import com.anqit.spanqit.examples.BaseExamples;
-import com.anqit.spanqit.rdf.RdfLiteral;
+import com.anqit.spanqit.rdf.Rdf;
 
 public class Section11 extends BaseExamples {
 	@Test
@@ -55,7 +55,7 @@ public class Section11 extends BaseExamples {
 	public void example_11_4() {
 		Prefix base = Spanqit.prefix(iri("http://example.com/data/#"));
 		Variable x = query.var(), y = query.var(), z = query.var(), min = query.var();
-		Expression<?> twiceMin = Expressions.multiply(Expressions.min(y), RdfLiteral.of(2));
+		Expression<?> twiceMin = Expressions.multiply(Expressions.min(y), Rdf.literalOf(2));
 
 		query.prefix(base).select(x, twiceMin.as(min)).where(x.has(base.iri("p"), y), x.has(base.iri("q"), z))
 				.groupBy(x, Expressions.str(z));
@@ -68,7 +68,7 @@ public class Section11 extends BaseExamples {
 		Variable g = query.var(), p = query.var(), avg = query.var(), c = query.var();
 		// TODO: fix parenthesizing compound expressions
 		Expression<?> midRange = Expressions.divide(Expressions.add(Expressions.min(p), Expressions.max(p)),
-				RdfLiteral.of(2));
+				Rdf.literalOf(2));
 
 		query.prefix(base).select(g, Expressions.avg(p).as(avg), midRange.as(c)).where(g.has(base.iri("p"), p))
 				.groupBy(g);

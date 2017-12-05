@@ -14,7 +14,7 @@ import com.anqit.spanqit.graphpattern.GraphPattern;
 import com.anqit.spanqit.graphpattern.GraphPatternNotTriple;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
 import com.anqit.spanqit.graphpattern.TriplePattern;
-import com.anqit.spanqit.rdf.RdfLiteral;
+import com.anqit.spanqit.rdf.Rdf;
 
 public class Section3 extends BaseExamples {
 	@Test
@@ -24,7 +24,7 @@ public class Section3 extends BaseExamples {
 		Variable x = query.var(), title = Spanqit.var("title");
 		TriplePattern xTitle = GraphPatterns.tp(x, dc.iri("title"), title);
 		
-		Expression<?> regex = Expressions.regex(title, RdfLiteral.of("^SPARQL"));
+		Expression<?> regex = Expressions.regex(title, Rdf.literalOf("^SPARQL"));
 		GraphPatternNotTriple where = GraphPatterns.and(xTitle).filter(regex);
 
 		query.prefix(dc).select(title).where(where);

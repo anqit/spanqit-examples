@@ -11,11 +11,10 @@ import com.anqit.spanqit.examples.BaseExamples;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
 import com.anqit.spanqit.graphpattern.TriplePattern;
 import com.anqit.spanqit.rdf.Iri;
-import com.anqit.spanqit.rdf.RdfBlankNode;
+import com.anqit.spanqit.rdf.Rdf;
 import com.anqit.spanqit.rdf.RdfBlankNode.PropertiesBlankNode;
-import com.anqit.spanqit.rdf.RdfLiteral;
-import com.anqit.spanqit.rdf.RdfPredicate;
 import com.anqit.spanqit.rdf.RdfLiteral.StringLiteral;
+import com.anqit.spanqit.rdf.RdfPredicate;
 
 public class Section4 extends BaseExamples {
 	Prefix foaf = Spanqit.prefix("foaf", iri(FOAF_NS));
@@ -26,15 +25,15 @@ public class Section4 extends BaseExamples {
 		Prefix defPrefix = Spanqit.prefix(iri(DC_NS));
 		
 		// [ :p "v" ] .
-		PropertiesBlankNode bnode = RdfBlankNode.bNode(defPrefix.iri("p"), RdfLiteral.of("v"));
+		PropertiesBlankNode bnode = Rdf.bNode(defPrefix.iri("p"), Rdf.literalOf("v"));
 		p(bnode.toTp());
 		
 		// [] :p "v" .
-		TriplePattern tp = RdfBlankNode.bNode().has(defPrefix.iri("p"), RdfLiteral.of("v"));
+		TriplePattern tp = Rdf.bNode().has(defPrefix.iri("p"), Rdf.literalOf("v"));
 		p(tp);
 		
 		//	[ :p "v" ] :q "w" .
-		tp = bnode.has(defPrefix.iri("q"), RdfLiteral.of("w"));
+		tp = bnode.has(defPrefix.iri("q"), Rdf.literalOf("w"));
 		p(tp);
 
 		// :x :q [ :p "v" ] .
@@ -43,7 +42,7 @@ public class Section4 extends BaseExamples {
 		
 		// [ foaf:name  ?name ;
 		//	 foaf:mbox  <mailto:alice@example.org> ]
-		bnode = RdfBlankNode.bNode(foaf.iri("name"), name).andHas(foaf.iri("mbox"), iri("mailto:alice@example.org"));
+		bnode = Rdf.bNode(foaf.iri("name"), name).andHas(foaf.iri("mbox"), iri("mailto:alice@example.org"));
 		p(bnode);
 	}
 
@@ -61,8 +60,8 @@ public class Section4 extends BaseExamples {
 		Variable x = Spanqit.var("x"),
 				name = Spanqit.var("name");
 		Iri nick = foaf.iri("nick");
-		StringLiteral aliceNick = RdfLiteral.of("Alice"),
-				alice_Nick = RdfLiteral.of("Alice_");
+		StringLiteral aliceNick = Rdf.literalOf("Alice"),
+				alice_Nick = Rdf.literalOf("Alice_");
 		
 		TriplePattern tp = GraphPatterns.tp(x, nick, alice_Nick, aliceNick);
 		p(tp);
@@ -79,6 +78,6 @@ public class Section4 extends BaseExamples {
 		p(Spanqit.var("x").isA(defPrefix.iri("Class1")));
 
 		// the isA predicate is a static member of RdfPredicate
-		p(RdfBlankNode.bNode(RdfPredicate.isA, defPrefix.iri("appClass")).has(defPrefix.iri("p"), "v"));
+		p(Rdf.bNode(RdfPredicate.a, defPrefix.iri("appClass")).has(defPrefix.iri("p"), "v"));
 	}
 }

@@ -18,7 +18,7 @@ import com.anqit.spanqit.graphpattern.GraphPattern;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
 import com.anqit.spanqit.graphpattern.TriplePattern;
 import com.anqit.spanqit.rdf.Iri;
-import com.anqit.spanqit.rdf.RdfLiteral;
+import com.anqit.spanqit.rdf.Rdf;
 
 public class Section3 extends BaseExamples {
 	Prefix dc = Spanqit.prefix("dc", iri("http://purl.org/dc/elements/1.1/"));
@@ -39,8 +39,8 @@ public class Section3 extends BaseExamples {
 		InsertDataQuery insertDataQuery = Queries.INSERT_DATA();
 
 		insertDataQuery.prefix(dc)
-				.insertData(iri("http://example/book1").has(dc.iri("title"), RdfLiteral.of("A new book"))
-						.andHas(dc.iri("creator"), RdfLiteral.of("A.N.Other")));
+				.insertData(iri("http://example/book1").has(dc.iri("title"), Rdf.literalOf("A new book"))
+						.andHas(dc.iri("creator"), Rdf.literalOf("A.N.Other")));
 
 		p(insertDataQuery);
 	}
@@ -56,7 +56,7 @@ public class Section3 extends BaseExamples {
 
 		InsertDataQuery insertDataQuery = Queries.INSERT_DATA();
 
-		insertDataQuery.prefix(dc, ns).insertData(iri("http://example/book1").has(ns.iri("price"), RdfLiteral.of(42)))
+		insertDataQuery.prefix(dc, ns).insertData(iri("http://example/book1").has(ns.iri("price"), Rdf.literalOf(42)))
 				.into(iri("http://example/bookStore"));
 
 		p(insertDataQuery);
@@ -74,8 +74,8 @@ public class Section3 extends BaseExamples {
 
 		DeleteDataQuery deleteDataQuery = Queries.DELETE_DATA().prefix(dc);
 
-		deleteDataQuery.deleteData(iri("http://example/book2").has(dc.iri("title"), RdfLiteral.of("David Copperfield"))
-				.andHas(dc.iri("creator"), RdfLiteral.of("Edmund Wells")));
+		deleteDataQuery.deleteData(iri("http://example/book2").has(dc.iri("title"), Rdf.literalOf("David Copperfield"))
+				.andHas(dc.iri("creator"), Rdf.literalOf("Edmund Wells")));
 
 		p(deleteDataQuery);
 	}
@@ -104,8 +104,8 @@ public class Section3 extends BaseExamples {
 
 	@Test
 	public void example_with() {
-		TriplePattern<?> abc = GraphPatterns.tp(Spanqit.var("a"), Spanqit.var("b"), Spanqit.var("c"));
-		TriplePattern<?> xyz = GraphPatterns.tp(Spanqit.var("x"), Spanqit.var("y"), Spanqit.var("z"));
+		TriplePattern abc = GraphPatterns.tp(Spanqit.var("a"), Spanqit.var("b"), Spanqit.var("c"));
+		TriplePattern xyz = GraphPatterns.tp(Spanqit.var("x"), Spanqit.var("y"), Spanqit.var("z"));
 		ModifyQuery modify = Queries.MODIFY();
 		Iri g1 = () -> "<g1>";
 		GraphPattern examplePattern = () -> " ... ";
@@ -161,7 +161,7 @@ public class Section3 extends BaseExamples {
 
 		modify.prefix(dc, xsd).delete(book.has(p, v))
 				.where(GraphPatterns.and(book.has(dc.iri("date"), date), book.has(p, v)).filter(
-						Expressions.gt(date, RdfLiteral.ofType("1970-01-01T00:00:00-02:00", xsd.iri("dateTime")))));
+						Expressions.gt(date, Rdf.literalOfType("1970-01-01T00:00:00-02:00", xsd.iri("dateTime")))));
 		p(modify);
 	}
 
@@ -198,7 +198,7 @@ public class Section3 extends BaseExamples {
 
 		p(Queries.MODIFY().prefix(dc, xsd).insert(book.has(p, v)).into(iri("http://example/bookStore2"))
 				.where(and(book.has(dc.iri("date"), date), book.has(p, v)).from(iri("http://example/bookStore")).filter(
-						Expressions.gt(date, RdfLiteral.ofType("1970-01-01T00:00:00-02:00", xsd.iri("dateTime"))))));
+						Expressions.gt(date, Rdf.literalOfType("1970-01-01T00:00:00-02:00", xsd.iri("dateTime"))))));
 	}
 
 	@Test
@@ -262,12 +262,12 @@ public class Section3 extends BaseExamples {
 				.insert(book.has(p, v)).into(iri("http://example/bookStore2"))
 				.where(and(book.has(dc.iri("date"), date), book.has(p, v))
 						.from(iri("http://example/bookStore"))
-						.filter(Expressions.lt(date, RdfLiteral.ofType("1970-01-01T00:00:00-02:00", xsd.iri("dateTime")))));
+						.filter(Expressions.lt(date, Rdf.literalOfType("1970-01-01T00:00:00-02:00", xsd.iri("dateTime")))));
 		ModifyQuery deleteFromBookStoreQuery = Queries.MODIFY().with(iri("http://example/bookStore"))
 				.delete(book.has(p, v))
 				.where(and(book.has(dc.iri("date"), date).andHas(dc.iri("type"), dcmitype.iri("PhysicalObject")),
 						   book.has(p, v))
-						.filter(Expressions.lt(date, RdfLiteral.ofType("2000-01-01T00:00:00-02:00", xsd.iri("dateTime")))));
+						.filter(Expressions.lt(date, Rdf.literalOfType("2000-01-01T00:00:00-02:00", xsd.iri("dateTime")))));
 		
 		p(insertIntobookStore2Query, deleteFromBookStoreQuery);
 	}

@@ -15,7 +15,7 @@ import com.anqit.spanqit.graphpattern.GraphPattern;
 import com.anqit.spanqit.graphpattern.GraphPatternNotTriple;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
 import com.anqit.spanqit.rdf.Iri;
-import com.anqit.spanqit.rdf.RdfLiteral;
+import com.anqit.spanqit.rdf.Rdf;
 
 public class Section8 extends BaseExamples {
 	@Test
@@ -60,7 +60,7 @@ public class Section8 extends BaseExamples {
  */
 		GraphPattern allNotNamedBob = GraphPatterns.and(
 				s.has(query.var(), query.var())).minus(
-				s.has(foaf.iri("givenName"), RdfLiteral.of("Bob")));
+				s.has(foaf.iri("givenName"), Rdf.literalOf("Bob")));
 		query.prefix(base, foaf).select(s).distinct().where(allNotNamedBob);
 		p();
 	}
