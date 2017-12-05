@@ -1,4 +1,4 @@
-package com.anqit.spanqit.examples;
+package com.anqit.spanqit.examples.sparql11spec;
 
 import org.junit.Test;
 
@@ -6,11 +6,12 @@ import com.anqit.spanqit.constraint.Expressions;
 import com.anqit.spanqit.core.Prefix;
 import com.anqit.spanqit.core.Spanqit;
 import com.anqit.spanqit.core.Variable;
+import com.anqit.spanqit.examples.BaseExamples;
 import com.anqit.spanqit.graphpattern.GraphPatternNotTriple;
 import com.anqit.spanqit.graphpattern.GraphPatterns;
 import com.anqit.spanqit.graphpattern.TriplePattern;
 
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
+import static com.anqit.spanqit.rdf.Rdf.iri;
 
 public class Section6 extends BaseExamples {
 	@Test
@@ -50,7 +51,7 @@ public class Section6 extends BaseExamples {
 				.var("hpage");
 		Variable x = query.var();
 
-		TriplePattern namePattern = x.has(iri(FOAF_NS, "name"), name);
+		TriplePattern namePattern = x.has(foaf.iri("name"), name);
 
 		query.prefix(foaf)
 				.select(name, mbox, hpage)

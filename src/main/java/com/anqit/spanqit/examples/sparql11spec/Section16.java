@@ -1,18 +1,19 @@
-package com.anqit.spanqit.examples;
+package com.anqit.spanqit.examples.sparql11spec;
+
+import static com.anqit.spanqit.rdf.Rdf.iri;
 
 import org.junit.Test;
 
 import com.anqit.spanqit.constraint.Expression;
-import com.anqit.spanqit.constraint.ExpressionOperand;
-import com.anqit.spanqit.constraint.ExpressionOperands;
+import com.anqit.spanqit.constraint.Operand;
 import com.anqit.spanqit.constraint.Expressions;
 import com.anqit.spanqit.core.Assignment;
 import com.anqit.spanqit.core.Prefix;
 import com.anqit.spanqit.core.Projection;
 import com.anqit.spanqit.core.Spanqit;
 import com.anqit.spanqit.core.Variable;
-
-import static pers.aprakash.spanqit.rdf.adapter.OpenRdfAdapter.*;
+import com.anqit.spanqit.examples.BaseExamples;
+import com.anqit.spanqit.rdf.Rdf;
 
 public class Section16 extends BaseExamples {
 	@Test
@@ -21,7 +22,7 @@ public class Section16 extends BaseExamples {
 		Prefix ns = Spanqit.prefix("ns", iri(EXAMPLE_ORG_NS));
 		Variable title = query.var(), p = query.var(), discount = query.var(), price = query
 				.var(), x = query.var();
-		ExpressionOperand one = ExpressionOperands.numberOperand(1);
+		Operand one = Rdf.literalOf(1);
 
 		// TODO: fix parentheses
 		Assignment discountedPrice = Expressions.multiply(p,
